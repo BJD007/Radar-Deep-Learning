@@ -1,0 +1,18 @@
+import torch
+
+# Load YOLOv5 model
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+
+# Perform inference on an image
+img = 'path/to/your/image.jpg'
+results = model(img)
+
+# Process results
+detections = results.xyxy[0]  # xyxy format bounding boxes
+for det in detections:
+    x1, y1, x2, y2, conf, cls = det
+    print(f"Class: {model.names[int(cls)]}, Confidence: {conf:.2f}")
+    print(f"Bounding box: ({x1:.2f}, {y1:.2f}) - ({x2:.2f}, {y2:.2f})")
+
+# Visualize results
+results.show()
